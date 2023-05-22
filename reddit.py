@@ -9,11 +9,10 @@ reddit = praw.Reddit(
     user_agent=RedditConfig.USER_AGENT
 )
 
-def query_popular_nsfw(popular_limit, submission_limit):
+def query_popular_nsfw(popular_limit, submission_limit, database):
     popular_subs = reddit.subreddits.popular(limit=popular_limit)
     for sub in popular_subs:
         for submission in sub.new(limit=submission_limit):
-            if submission.over_18:
-                print(submission.title)
+            database.insert_submission(submission.id, submission.title, submission.created_utc, submission.over_18)
 
 
