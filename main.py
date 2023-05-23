@@ -10,6 +10,10 @@ def signal_handler(database, sig, frame):
     database.close()
     sys.exit(0)
 
+def routine(database):
+    reddit.collect_data(50, None, database)
+    Database.export_csv(database,'data/reddit.csv')
+
 def main():
     if __name__=='__main__':
         # init database
@@ -18,9 +22,9 @@ def main():
         # Register signal handler
         signal.signal(signal.SIGINT, partial(signal_handler, database))
         # run immediatly at launch
-        reddit.collect_data(database=database)
+        routine(database)
         # Collect data every 5 minutes
-        schedule.every(2).hours.do(reddit.collect_data, 50, None, database)
+        schedule.every(2).hours.do(routine, database)
     while True:
         schedule.run_pending()
         time.sleep(60)

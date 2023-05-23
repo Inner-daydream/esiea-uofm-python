@@ -1,9 +1,7 @@
 # oauth login to reddit api
 from config import RedditConfig
 import praw
-from datetime import datetime
 import time
-import pprint
 
 
 reddit = praw.Reddit(
@@ -18,12 +16,6 @@ def get_popular_subreddits(limit):
     for sub in reddit.subreddits.popular(limit=limit):
         subreddits.append(sub)
     return subreddits
-
-# def query_popular_nsfw(popular_limit, submission_limit, database):
-#     popular_subs = reddit.subreddits.popular(limit=popular_limit)
-#     for sub in popular_subs:
-#         for submission in sub.new(limit=submission_limit):
-#             database.insert_submission(submission.id, submission.title, submission.created_utc, submission.over_18)
 
 # reddit submissions within timeframe from the api
 def submissions_within_timeframe(start, end, submission_limit,subreddit):

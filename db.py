@@ -1,4 +1,5 @@
 import sqlite3 as sql
+import pandas as pd
 import os
 
 class Database(object):
@@ -17,5 +18,9 @@ class Database(object):
 
     def close(self):
         self.conn.close()
+    
+    def export_csv(self, path):
+        df = pd.read_sql_query("select * from submissions", self.conn)
+        df.to_csv(path, index=False)
 
         
