@@ -1,0 +1,10 @@
+.envrc
+venv
+__pycache__
+.gitignore
+.git
+.dockerignore
+*.db
+docker-compose.yaml
+push.sh
+data
