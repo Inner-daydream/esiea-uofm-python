@@ -13,7 +13,7 @@ reddit = praw.Reddit(
 def get_popular_subreddits(limit):
     """Returns a list of popular subreddits."""
     subreddits = []
-    for sub in reddit.subreddits.popular(limit=limit):
+    for sub in reddit.subreddits.popular(limit=int(limit)):
         subreddits.append(sub)
     return subreddits
 
@@ -21,8 +21,8 @@ def get_popular_subreddits(limit):
 def submissions_within_timeframe(start, end, submission_limit,subreddit):
     """Returns a list of submissions within the timeframe from the api."""
     submissions = []
-    for submission in subreddit.new(limit=submission_limit):
-        if start <= submission.created_utc <= end:
+    for submission in subreddit.new(limit=int(submission_limit)):
+        if int(start) <= submission.created_utc <= int(end):
             submissions.append(submission)
     return submissions
 
@@ -41,18 +41,30 @@ def store_submissions(submissions, database):
                                     submission.locked,
                                     submission.upvote_ratio,
                                     submission.score,
-                                    submission.num_comments)
+                                    submission.num_comments,
+                                    time.time()
+        )
         
-def collect_data(subreddit_limit=50, submission_limit=None, database=None):
-    print("Starting a job.")
+def collect_data(subreddit_limit=50, submission_limit=None, threshold=86400, database=None):
     popular_subreddits = get_popular_subreddits(subreddit_limit)
     for sub in popular_subreddits:
         print(f"Collecting data from r/{sub.display_name}")
         now =  time.time() 
-        yesterday = now - 86400 # 86400 seconds in a day
+        yesterday = now - threshold # epoch time
         submissions = submissions_within_timeframe(start=yesterday, 
                                                    end=now, 
                                                    submission_limit=submission_limit, 
                                                    subreddit=sub)
         store_submissions(submissions, database)
+
+
+def update_score(database, threshold):
+    """Updates the score of all submissions in the database."""
+    submissions = database.get_submissions(threshold)
+    ids = [f"t3_{submission[0]}" for submission in submissions]
+    submissions = reddit.info(fullnames=ids)
+    for submission in submissions:
+        database.update_submission(score=submission.score, update_time=time.time(), id=submission.id)
+
+    return submissions
 

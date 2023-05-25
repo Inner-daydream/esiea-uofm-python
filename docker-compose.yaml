@@ -7,3 +7,7 @@ services:
     environment:
       - CLIENT_ID=${CLIENT_ID}
       - CLIENT_SECRET=${CLIENT_SECRET}
+      - EXPORT_CSV=True
+      - SUBMISSION_LIMIT=100
+      - SUBREDDIT_LIMIT=10
+      - PYTHONUNBUFFERED=1
