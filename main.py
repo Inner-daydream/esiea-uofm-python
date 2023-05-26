@@ -4,6 +4,7 @@ import signal, sys
 from functools import partial
 import schedule, time
 from config import AppConfig
+import frontend
 
 # handle sigint
 def signal_handler(database, sig, frame):
@@ -33,13 +34,15 @@ def main():
         print('Database initialized.')
         # Register signal handler
         signal.signal(signal.SIGINT, partial(signal_handler, database))
+        # run frontend
+        frontend.run(port=8080)
         # run immediatly at launch
         routine(database)
         if (AppConfig.RUN_ONCE):
             shutdown(database)
         schedule.every(AppConfig.JOB_FREQUENCY).hours.do(routine, database)
-    while True:
-        schedule.run_pending()
-        time.sleep(AppConfig.POLLING_RATE)
+        while True:
+            schedule.run_pending()
+            time.sleep(AppConfig.POLLING_RATE)
         
 main()

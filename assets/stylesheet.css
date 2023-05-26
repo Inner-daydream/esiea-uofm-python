@@ -1,0 +1,21 @@
+
+body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.2rem;
+    line-height: 1.5;
+    color: #333;
+    background-color: #f4f4f4;
+}
+p {
+ margin-bottom: -3px;
+}
+.container {
+    width: 80%;
+    margin: auto;
+}
+h1, h2, radio {
+    text-align: center;
+}
+.element {
+    margin-bottom: 1rem;
+}
