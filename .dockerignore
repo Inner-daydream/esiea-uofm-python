@@ -8,3 +8,4 @@ __pycache__
 docker-compose.yaml
 push.sh
 data
+*.ipynb

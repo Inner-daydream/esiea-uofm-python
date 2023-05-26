@@ -1,7 +1,7 @@
 .envrc
 __pycache__
 *.db
-*.ipynbvenv
+*.ipynb
 venv
 data
 .DS_Store
