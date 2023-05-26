@@ -42,7 +42,9 @@ def store_submissions(submissions, database):
                                     submission.upvote_ratio,
                                     submission.score,
                                     submission.num_comments,
-                                    time.time()
+                                    time.time(),
+                                    submission.is_original_content,
+                                    submission.is_self
         )
         
 def collect_data(subreddit_limit=50, submission_limit=None, threshold=86400, database=None):
