@@ -11,3 +11,4 @@ services:
       - SUBMISSION_LIMIT=100
       - SUBREDDIT_LIMIT=10
       - PYTHONUNBUFFERED=1
+      
