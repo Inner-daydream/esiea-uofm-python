@@ -10,11 +10,11 @@ class AppConfig:
     """Contains the configuration for the application."""
     COLLECT_DATA = os.environ.get('COLLECT') or True
     UPDATE_SCORE = os.environ.get('UPDATE') or True
-    EXPORT_CSV = os.environ.get('EXPORT') or False
+    EXPORT_CSV = os.environ.get('EXPORT') or True
     SCORE_UPDATE_THRESHOLD = os.environ.get('SCORE_UPDATE_THRESHOLD') or 60 * 60 * 24 # 24 hours
     COLLECTION_THRESHOLD = os.environ.get('COLLECTION_THRESHOLD') or 60 * 60 * 24 # 24 hours
-    SUBMISSION_LIMIT = os.environ.get('SUBMISSION_LIMIT') or None
-    SUBREDDIT_LIMIT = os.environ.get('SUBREDDIT_LIMIT') or 50
+    SUBMISSION_LIMIT = os.environ.get('SUBMISSION_LIMIT') or 10
+    SUBREDDIT_LIMIT = os.environ.get('SUBREDDIT_LIMIT') or 5
     DATABASE_PATH = os.environ.get('DATABASE_PATH') or 'data/reddit.db'
     CSV_PATH = os.environ.get('CSV_PATH') or 'data/reddit.csv'
     JOB_FREQUENCY = os.environ.get('JOB_FREQUENCY') or 2 # 2 hours
