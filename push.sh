@@ -7,5 +7,5 @@ else
 fi
 lowercase_username=$(echo "$GH_USERNAME" | tr '[:upper:]' '[:lower:]')
 pip freeze > requirements.txt
-docker buildx build --platform linux/amd64 -t "ghcr.io/$lowercase_username/pyreddit:latest" .
+docker buildx build --platform linux/amd64 --no-cache -t "ghcr.io/$lowercase_username/pyreddit:latest" .
 docker push "ghcr.io/$lowercase_username/pyreddit:latest"
