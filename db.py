@@ -29,7 +29,7 @@ class Database(object):
         self.conn.commit()
     
     def update_submission(self, score, update_time, id):
-        self.cur.execute('''UPDATE submissions SET score=?, update_time=?, is_self=?, oc=? WHERE id=?''', 
+        self.cur.execute('''UPDATE submissions SET score=?, update_time=?, is_self=?''', 
                         (score, update_time, id))
         self.conn.commit()
 
